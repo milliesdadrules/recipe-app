@@ -6,6 +6,7 @@ loadRecipes()
 
 
 
+
 document.querySelector('#add-recipe').addEventListener(('click'), (e) => {;
     location.assign(`edit.html#${uuidv4()}`)
 })
