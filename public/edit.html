@@ -8,12 +8,20 @@
 </head>
 <body>
     <div class="container">
-        <input type="text" name="title" id="recipe-title">
+        <header class='header'>
+            <input type="text" name="title" id="recipe-title">
+        </header>
+        
+        <br>
         <textarea name="details" id="recipe-detail" cols="30" rows="10"></textarea>
-        <h2>Ingredients:</h2>
-        <div class="ingredients"></div>
-        <input type="text" name="ingredirent" id="ingredient">
-        <button class="button">Add ingredient</button>
+        <br>
+        <div class="ingredients">
+            <h2>Ingredients:</h2>
+            <div class="ingredients"></div>
+            <input type="text" name="ingredirent" id="ingredient">
+            <button class="button">Add ingredient</button>
+        </div>
+        <button id="save-recipe">Save Recipe</button>
         <script src="./scripts/edit-bundle.js"></script>
     </div>
 </body>
