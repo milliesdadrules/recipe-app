@@ -1,12 +1,14 @@
-import { v4 as uuidv4 } from 'uuid'
-import { loadRecipes } from './recipes'
+import {v4 as uuidv4 } from 'uuid'
+import { getRecipes } from './recipes'
+import { renderRecipes } from './views'
 
-loadRecipes()
-// localStorage.setItem("recipes",JSON.stringify(recipes))
+let recipes = getRecipes()
+console.log(recipes, 'index.js');
+const addBtn = document.querySelector('#add-recipe')
 
-
-
-
-document.querySelector('#add-recipe').addEventListener(('click'), (e) => {;
-    location.assign(`edit.html#${uuidv4()}`)
+addBtn.addEventListener('click', ()=> {
+    const uuid = uuidv4()
+    location.assign(`/edit.html#${uuid}`)
 })
+
+renderRecipes(recipes)
