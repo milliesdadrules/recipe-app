@@ -1,3 +1,5 @@
+import { generateRecipeDOM, generateIngredientsDOM } from "./views"
+
 let recipes = []
 const loadRecipes = () =>{
     const recipesJSON = localStorage.getItem('recipes')
@@ -17,7 +19,7 @@ const getRecipes = () => recipes
 const addRecipe = (recipe) =>{
     recipes.push(recipe)
     saveRecipes()
-    location.assign('index.html')
+    //location.assign('index.html')
 }
 
 const updateRecipe = (id, updates) =>{
@@ -47,5 +49,26 @@ const removeRecipe = (id) =>{
 }
 const saveRecipes = () => localStorage.setItem('recipes',JSON.stringify(recipes))
 
+const toggleIngredient = () =>{
 
-export { addRecipe, getRecipes, updateRecipe, removeRecipe }
+}
+
+const removeIngredient = (id, recipe) =>{
+
+}
+
+const getIngredients = (recipe) => {
+    recipe.incredients.forEach((ingredient) => {
+        generateIngredientsDOM(ingredient)
+    })
+}
+const addIngredient = (recipe, ingredient) =>{
+    recipe.ingredients.push({
+        id: ingredient.id,
+        name: ingredient.name,
+        instock: ingredient.instock
+    })
+    saveRecipes()
+
+}
+export { addRecipe, getRecipes, updateRecipe, removeRecipe,toggleIngredient, addIngredient }

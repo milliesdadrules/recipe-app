@@ -1,15 +1,19 @@
-import { getRecipes, addRecipe, updateRecipe, removeRecipe } from './recipes'
+import { getRecipes, addRecipe, updateRecipe, removeRecipe, addIngredient } from './recipes'
+import { generateIngredientsDOM} from './views'
+import { v4 as uuidv4 } from 'uuid'
+
 const recipeID = location.hash.substring(1)
 const titleEl = document.querySelector('#recipe-title')
 const detailEl = document.querySelector('#recipe-detail')
 const saveBtn = document.querySelector('#save-recipe')
 const removeBtn = document.querySelector('#remove-recipe')
+const ingredientEl = document.querySelector('#ingredient')
+const addIngredBtn = document.querySelector('#add-ingredient')
 
 let exists = false
 let updateDetail = ''
 let updateTitle = ''
 let ingredients = []
-
 
 getRecipes().find((recipe) => {
     const details = recipe.id === recipeID
@@ -20,6 +24,9 @@ getRecipes().find((recipe) => {
         updateDetail = recipe.detail
         saveBtn.textContent = "Update Recipe"
         exists = true
+        recipe.ingredients.forEach((ingredient=>{
+            document.querySelector('#ingredients').appendChild(generateIngredientsDOM(ingredient))
+        }))
     }
 })
 
@@ -30,7 +37,6 @@ titleEl.addEventListener('input', (e) => {
 detailEl.addEventListener('input', (e) => {
     updateDetail = e.target.value
 })
-
 
 saveBtn.addEventListener('click', (e) => {
     if(exists){
@@ -54,3 +60,23 @@ removeBtn.addEventListener('click', (e) => {
     }
 })
 
+addIngredBtn.addEventListener('click',(e)=>{
+    getRecipes().find((recipe) => {
+        const food = recipe.id === recipeID
+
+        if(food){
+            if(ingredientEl.value.trim().length > 0) {
+                addIngredient(recipe,{
+                    id: uuidv4(),
+                    name: ingredientEl.value,
+                    instock: false
+                })
+            }
+        }
+        location.reload()
+    })
+
+    // food.ingredients.forEach((ingredient)=>{
+    //     generateIngredientsDOM(ingredient)
+    // })
+})

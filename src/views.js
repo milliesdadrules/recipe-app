@@ -1,4 +1,4 @@
-import { getRecipes } from "./recipes";
+import { getRecipes, removeRecipe, removeIngredient, toggleIngredient } from "./recipes";
 
 const generateRecipeDOM = (recipe) => {
     console.log(recipe.id);
@@ -33,4 +33,39 @@ const renderRecipes = () => {
     }
 }
 
-export { renderRecipes, generateRecipeDOM }
+const generateIngredientsDOM = (ingredient) => {
+    // Create ingredients DOM elements
+    const listIngredients = document.createElement('label')
+    const containerEl = document.createElement('div')
+    const checkIngredient = document.createElement('input')
+    const nameEl = document.createElement('span')
+    const removeButton = document.createElement('button')
+
+    // Setup ingredient checkbox
+    checkIngredient.setAttribute('type','checkbox')
+    checkIngredient.checked = ingredient.instock
+    containerEl.appendChild(checkIngredient)
+    checkIngredient.addEventListener('change',()=>{
+        toggleIngredient(ingredient.id)
+    })
+
+    // Setup ingredient text
+    nameEl.textContent = ingredient.name
+    containerEl.appendChild(nameEl)
+
+    // Setup the remove button
+    removeButton.textContent = 'remove'
+    removeButton.classList.add('button','button--text')
+
+    // Setup container
+    listIngredients.classList.add('list-item')
+    containerEl.classList.add('list-item__container')
+    listIngredients.appendChild(containerEl)
+
+    listIngredients.appendChild(removeButton)
+    removeButton.addEventListener('click', ()=>{
+        removeIngredient()
+    })
+    return listIngredients
+}
+export { renderRecipes, generateRecipeDOM, generateIngredientsDOM }
