@@ -40,7 +40,10 @@ const removeRecipe = (id) =>{
     const index = recipes.findIndex((recipe) => {
         return recipe.id === id
     })
+    recipes.splice(index,1)
+    saveRecipes()
     console.log(index, 'remove');
+    location.assign('index.html')
 }
 const saveRecipes = () => localStorage.setItem('recipes',JSON.stringify(recipes))
 
