@@ -169,3 +169,8 @@ body {
   padding: .8rem;
   transition: background .3s ease;
 }
+
+.empty-message {
+  text-align: center;
+  margin: 3.2rem 0;
+}
