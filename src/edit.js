@@ -3,6 +3,7 @@ const recipeID = location.hash.substring(1)
 const titleEl = document.querySelector('#recipe-title')
 const detailEl = document.querySelector('#recipe-detail')
 const saveBtn = document.querySelector('#save-recipe')
+const removeBtn = document.querySelector('#remove-recipe')
 
 let exists = false
 let updateDetail = ''
@@ -45,5 +46,6 @@ saveBtn.addEventListener('click', (e) => {
             ingredients: ingredients
         })
     }
-
 })
+
+
