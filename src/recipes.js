@@ -35,7 +35,14 @@ const updateRecipe = (id, updates) =>{
     location.assign('index.html')
 
 }
+
+const removeRecipe = (id) =>{
+    const index = recipes.findIndex((recipe) => {
+        return recipe.id === id
+    })
+    console.log(index, 'remove');
+}
 const saveRecipes = () => localStorage.setItem('recipes',JSON.stringify(recipes))
 
 
-export { addRecipe, getRecipes, updateRecipe }
+export { addRecipe, getRecipes, updateRecipe, removeRecipe }
