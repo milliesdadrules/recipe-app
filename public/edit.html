@@ -9,20 +9,29 @@
 <body>
     <div class="container">
         <header class='recipe_header'>
-            <input class="title-input" type="text" id="recipe-title">
+            <div class="container">
+                <h1 class="header__title">Recipe App</h1>
+            </div>
         </header>
-        
-        <br>
+
+        <input class="title-input" type="text" id="recipe-title">
+
         <textarea class="body-input" name="details" id="recipe-detail" cols="30" rows="10"></textarea>
-        <br>
+
         <div class="ingredients">
             <h2>Ingredients:</h2>
             <div id="ingredients"></div>
             <input type="text" name="ingredirent" id="ingredient" class="input">
             <button class="button">Add ingredient</button>
         </div>
-        <button class="button" id="save-recipe">Save Recipe</button>
-
+        <div class="button__container--spaced">
+            <button class="button" id="save-recipe">Save Recipe</button>   
+        </div>
+        
+        <div class="warning">
+            <h2>Danger Zone:</h2>
+            <button class="warning__button" id="remove-recipe">Delete Recipe</button>   
+        </div>
     </div>
     <script src="/scripts/edit-bundle.js"></script>
 </body>

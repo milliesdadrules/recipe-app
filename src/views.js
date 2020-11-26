@@ -1,3 +1,5 @@
+import { getRecipes } from "./recipes";
+
 const generateRecipeDOM = (recipe) => {
     console.log(recipe.id);
     const recipeEl = document.createElement('a')
@@ -15,7 +17,8 @@ const generateRecipeDOM = (recipe) => {
     recipeEl.classList.add('recipe-item')
     return recipeEl
 }
-const renderRecipes = (recipes) => {
+const renderRecipes = () => {
+    const recipes = getRecipes()
     const listEl = document.querySelector('#recipes')
     if(recipes.length > 0){
         recipes.forEach((recipe) => {

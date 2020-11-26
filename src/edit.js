@@ -1,34 +1,49 @@
-import { getRecipes, addRecipe } from './recipes'
+import { getRecipes, addRecipe, updateRecipe } from './recipes'
 const recipeID = location.hash.substring(1)
 const titleEl = document.querySelector('#recipe-title')
 const detailEl = document.querySelector('#recipe-detail')
 const saveBtn = document.querySelector('#save-recipe')
 
+let exists = false
 let updateDetail = ''
 let updateTitle = ''
 let ingredients = []
 
+
+getRecipes().find((recipe) => {
+    const details = recipe.id === recipeID
+    if(details){
+        titleEl.value = recipe.title
+        updateTitle = recipe.title
+        detailEl.value = recipe.detail
+        updateDetail = recipe.detail
+        saveBtn.textContent = "Update Recipe"
+        exists = true
+    }
+})
+
 titleEl.addEventListener('input', (e) => {
     updateTitle = e.target.value
-    console.log((updateTitle));
 })
 
 detailEl.addEventListener('input', (e) => {
     updateDetail = e.target.value
-    console.log(updateDetail);
 })
 
 
 saveBtn.addEventListener('click', (e) => {
-
+    if(exists){
+        updateRecipe(recipeID,{
+            title: updateTitle,
+            detail: updateDetail
+        })
+    } else {
     addRecipe({
-        id: recipeID,
-        title: updateTitle,
-        detail: updateDetail,
-        ingredients: ingredients
-    })
+            id: recipeID,
+            title: updateTitle,
+            detail: updateDetail,
+            ingredients: ingredients
+        })
+    }
 
 })
-
-
-console.log(getRecipes())

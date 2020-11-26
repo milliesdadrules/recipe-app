@@ -2,8 +2,8 @@ import {v4 as uuidv4 } from 'uuid'
 import { getRecipes } from './recipes'
 import { renderRecipes } from './views'
 
-let recipes = getRecipes()
-console.log(recipes, 'index.js');
+renderRecipes()
+
 const addBtn = document.querySelector('#add-recipe')
 
 addBtn.addEventListener('click', ()=> {
@@ -11,4 +11,4 @@ addBtn.addEventListener('click', ()=> {
     location.assign(`/edit.html#${uuid}`)
 })
 
-renderRecipes(recipes)
+

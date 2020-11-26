@@ -101,14 +101,13 @@ body {
 
 .title-input {
   border: 1px solid #DEDFE0;
+  font-family: inherit;
   font-size: 2rem;
   font-weight: 300;
   display: block;
   margin: 2.4rem 0;
   padding: .8rem;
-  width: 90%;
-  display: flex;
-  align-self: center;
+  width: 100%;
 }
 
 .body-input {
@@ -148,4 +147,25 @@ body {
   font-size: 1.4rem;
   font-weight: 300;
   font-style: italic;
+}
+
+.button__container--spaced {
+  padding-top: 20px;
+  justify-content: space-between
+}
+
+.warning {
+  padding-top: 20px;
+  color: red;
+}
+
+.warning__button {
+  background: #9c4343;
+  border: none;
+  border-bottom: 2px solid #f10707;
+  color: white;
+  font-size: 1.4rem;
+  font-weight: 300;
+  padding: .8rem;
+  transition: background .3s ease;
 }

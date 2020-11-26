@@ -1,3 +1,4 @@
+let recipes = []
 const loadRecipes = () =>{
     const recipesJSON = localStorage.getItem('recipes')
     try {
@@ -9,19 +10,32 @@ const loadRecipes = () =>{
     }
 }
 
-let recipes = loadRecipes()
+recipes = loadRecipes()
+
 const getRecipes = () => recipes
 
 const addRecipe = (recipe) =>{
-    
-    const recipes = getRecipes()
     recipes.push(recipe)
-    console.log(recipe, 'recipes')
     saveRecipes()
     location.assign('index.html')
 }
 
+const updateRecipe = (id, updates) =>{
+    const recipe = recipes.find((recipe) => recipe.id === id)
+    if(!recipe){
+        return
+    }
+    if(typeof updates.title === 'string'){
+        recipe.title = updates.title
+    }
+    if(typeof updates.detail === 'string'){
+        recipe.detail = updates.detail
+    }
+    saveRecipes()
+    location.assign('index.html')
+
+}
 const saveRecipes = () => localStorage.setItem('recipes',JSON.stringify(recipes))
 
 
-export { addRecipe, getRecipes }
+export { addRecipe, getRecipes, updateRecipe }
