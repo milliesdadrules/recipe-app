@@ -24,7 +24,12 @@ const renderRecipes = () => {
         recipes.forEach((recipe) => {
             const showRecipe = generateRecipeDOM(recipe)
             listEl.appendChild(showRecipe)
-        })
+        })  
+    } else {
+        const noRecipes = document.createElement('p')
+        noRecipes.textContent = "No recipes to display"
+        noRecipes.classList.add('empty-message')
+        listEl.appendChild(noRecipes)
     }
 }
 
