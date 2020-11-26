@@ -1,4 +1,4 @@
-import { getRecipes, addRecipe, updateRecipe } from './recipes'
+import { getRecipes, addRecipe, updateRecipe, removeRecipe } from './recipes'
 const recipeID = location.hash.substring(1)
 const titleEl = document.querySelector('#recipe-title')
 const detailEl = document.querySelector('#recipe-detail')
@@ -48,4 +48,9 @@ saveBtn.addEventListener('click', (e) => {
     }
 })
 
+removeBtn.addEventListener('click', (e) => {
+    if(exists){
+        removeRecipe(recipeID)
+    }
+})
 
