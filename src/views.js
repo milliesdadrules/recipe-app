@@ -1,16 +1,32 @@
-import { getRecipes, removeRecipe, removeIngredient, toggleIngredient } from "./recipes";
+import { getRecipes, toggleIngredient, removeIngredient } from "./recipes";
+import { getFilters } from './filter'
 
 const generateRecipeDOM = (recipe) => {
     console.log(recipe.id);
     const recipeEl = document.createElement('a')
     const titleEl = document.createElement('span')
     const summaryEl = document.createElement('p')
+    let items = 0
+    let summary = ''
+    recipe.ingredients.forEach((ingredient) => {
+        if(ingredient.instock){
+            items++
+        }
+    })
+
+    if(!recipe.ingredients || items === 0){
+        summary = 'You have no ingredients for this recipe.'
+    } else if(items === recipe.ingredients.length){
+        summary = 'You have all the ingredients for this recipe.'
+    } else {
+        summary = 'You have some ingredients for this recipe.'
+    } 
 
     titleEl.textContent = recipe.title
     recipeEl.appendChild(titleEl)
     titleEl.classList.add('recipe-item__title')
     summaryEl.classList.add('recipe-item__subtitle')
-    summaryEl.textContent = recipe.detail
+    summaryEl.textContent = summary
     recipeEl.appendChild(summaryEl)
 
     recipeEl.href = `/edit.html#${recipe.id}`
@@ -18,12 +34,16 @@ const generateRecipeDOM = (recipe) => {
     return recipeEl
 }
 const renderRecipes = () => {
+    const { searchText} = getFilters()
     const recipes = getRecipes()
     const listEl = document.querySelector('#recipes')
-    if(recipes.length > 0){
-        recipes.forEach((recipe) => {
-            const showRecipe = generateRecipeDOM(recipe)
-            listEl.appendChild(showRecipe)
+    const filteredRecipes = recipes.filter((recipe) => {
+        return recipe.title.toLowerCase().includes(searchText.toLowerCase())
+    })
+    listEl.innerHTML = ''
+    if(filteredRecipes.length > 0){
+        filteredRecipes.forEach((recipe) => {
+            listEl.appendChild(generateRecipeDOM(recipe))
         })  
     } else {
         const noRecipes = document.createElement('p')
@@ -46,7 +66,8 @@ const generateIngredientsDOM = (ingredient) => {
     checkIngredient.checked = ingredient.instock
     containerEl.appendChild(checkIngredient)
     checkIngredient.addEventListener('change',()=>{
-        toggleIngredient(ingredient.id)
+        toggleIngredient(ingredient.id,ingredient.recipeID)
+        console.log(ingredient.id,ingredient.recipeID )
     })
 
     // Setup ingredient text
@@ -55,6 +76,7 @@ const generateIngredientsDOM = (ingredient) => {
 
     // Setup the remove button
     removeButton.textContent = 'remove'
+    removeButton.setAttribute('id','remove-ingredient')
     removeButton.classList.add('button','button--text')
 
     // Setup container
@@ -64,7 +86,7 @@ const generateIngredientsDOM = (ingredient) => {
 
     listIngredients.appendChild(removeButton)
     removeButton.addEventListener('click', ()=>{
-        removeIngredient()
+        removeIngredient(ingredient.id, ingredient.recipeID)
     })
     return listIngredients
 }
