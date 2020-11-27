@@ -45,13 +45,16 @@ saveBtn.addEventListener('click', (e) => {
             detail: updateDetail
         })
     } else {
-    addRecipe({
-            id: recipeID,
-            title: updateTitle,
-            detail: updateDetail,
-            ingredients: ingredients
-        })
+        if(updateTitle){
+        addRecipe({
+                id: recipeID,
+                title: updateTitle,
+                detail: updateDetail,
+                ingredients: ingredients
+            })
+        }
     }
+    location.reload()
 })
 
 removeBtn.addEventListener('click', (e) => {
@@ -69,14 +72,11 @@ addIngredBtn.addEventListener('click',(e)=>{
                 addIngredient(recipe,{
                     id: uuidv4(),
                     name: ingredientEl.value,
-                    instock: false
+                    instock: false,
+                    recipeID: recipe.id
                 })
             }
         }
         location.reload()
     })
-
-    // food.ingredients.forEach((ingredient)=>{
-    //     generateIngredientsDOM(ingredient)
-    // })
 })
